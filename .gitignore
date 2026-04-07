@@ -17,11 +17,18 @@ log.txt
 /.versions
 /coverage
 
+#Environment folder
+src/environments/*
+.env
+src/environments/environment.ts
+src/environments/environment.prod.ts
+
 # Ionic
 /.ionic
 /www
 /platforms
 /plugins
+/android
 
 # Compiled output
 /dist

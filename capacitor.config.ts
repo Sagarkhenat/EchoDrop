@@ -1,9 +1,16 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.tracelens.echodrop',
+  appId: 'com.echodrop.dev',
   appName: 'EchoDrop',
-  webDir: 'www'
+  webDir: 'www',
+  server: {
+    androidScheme: 'https'
+  },
+  plugins: {
+
+  }
+
 };
 
 export default config;
