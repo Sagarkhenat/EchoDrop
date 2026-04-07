@@ -1,0 +1,88 @@
+<ion-header class="ion-no-border" [class.scanner-transparent]="isScanning()">
+  <ion-toolbar [color]="isScanning() ? 'transparent' : ''">
+    <ion-title class="ion-text-center">Manual Pairing</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close-circle" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  @if (!isScanning()) {
+    <ion-toolbar>
+      <ion-segment [value]="segmentView()" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="show">
+          <ion-label>My Code</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="scan">
+          <ion-label>Scan Code</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  }
+</ion-header>
+
+<ion-content class="ion-padding" [class.scanner-transparent]="isScanning()">
+
+  @if (segmentView() === 'show' && !isScanning()) {
+    <div class="qr-container">
+      <h2>Scan to Connect</h2>
+      <p class="subtitle">Have your friend scan this code, or enter the 6-digit PIN below.</p>
+
+      <div class="qr-wrapper">
+        <qrcode  [qrdata]="roomCode()" [width]="250" [errorCorrectionLevel]="'M'"
+          colorDark="#007bff"
+          colorLight="#ffffff">
+        </qrcode>
+      </div>
+
+      <div class="pin-display">
+        <h3>Room PIN</h3>
+        <p class="pin">{{ roomCode() }}</p>
+      </div>
+    </div>
+  }
+
+  @if (segmentView() === 'scan') {
+
+    @if (isScanning()) {
+      <div class="scanner-target">
+        <div class="target-box"></div>
+        <p class="target-text">Align QR Code within the frame</p>
+      </div>
+    } @else {
+      <div class="fallback-container">
+
+        @if (scanError()) {
+          <div class="error-card">
+            <ion-icon name="warning" color="danger"></ion-icon>
+            <p>{{ scanError() }}</p>
+            @if (!hasCameraPermission()) {
+              <ion-button fill="solid" color="primary" (click)="requestCameraPermission()">
+                Enable Camera
+              </ion-button>
+            }
+          </div>
+        }
+
+        <div class="manual-entry">
+          <h3>Manual Entry</h3>
+          <p>If the camera isn't working, type the 6-digit PIN here:</p>
+          <ion-item class="input-item" lines="none">
+            <ion-input
+              [(ngModel)]="manualInput"
+              placeholder="e.g. A1B2C3"
+              maxlength="6"
+              class="ion-text-center custom-font">
+            </ion-input>
+          </ion-item>
+          <ion-button expand="block" class="submit-btn" (click)="submitManualCode()" [disabled]="manualInput().length !== 6">
+            Connect
+          </ion-button>
+        </div>
+
+      </div>
+    }
+  }
+
+</ion-content>

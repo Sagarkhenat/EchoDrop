@@ -1,0 +1,105 @@
+/* -- Radar Animation Setup -- */
+.radar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.radar-btn {
+  width: 90px;
+  height: 90px;
+  --border-radius: 50%;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  font-size: 2rem;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: var(--ion-color-primary-tint);
+  opacity: 0;
+  pointer-events: none;
+
+  &.active {
+    /* Triggers the concentric circle animation when isScanning() is true */
+    animation: pulse 2s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--ion-color-primary-rgb), 0.7);
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 0 80px rgba(var(--ion-color-primary-rgb), 0);
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+/* -- Standardized State Containers -- */
+.state-container {
+  text-align: center;
+  padding: 2rem 1rem;
+
+  p {
+    color: var(--ion-color-medium);
+    margin-top: 0.5rem;
+  }
+}
+
+/* -- Error State Specifics -- */
+.error-state {
+  margin-top: 2rem;
+  background: var(--ion-color-step-50);
+  border-radius: 16px;
+
+  ion-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  ion-button {
+    margin-top: 1.5rem;
+  }
+}
+
+/* -- Discovered Device List -- */
+.device-list-container {
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+  }
+}
+
+.device-item {
+  --background: var(--ion-color-step-50);
+  --border-radius: 12px;
+  --padding-start: 1rem;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    font-weight: 600;
+  }
+
+  p {
+    font-family: monospace;
+    font-size: 0.8rem;
+  }
+}

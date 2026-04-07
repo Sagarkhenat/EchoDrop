@@ -2,12 +2,29 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
+    // Default route
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'discovery',
     pathMatch: 'full',
   },
+  {
+    path: 'discovery',
+    loadComponent: () =>
+      import('./features/discovery/discovery.component').then(m => m.DiscoveryComponent)
+  },
+  {
+    path: 'transfer',
+    loadComponent: () =>
+      import('./features/transfer/transfer.component').then(m => m.TransferComponent)
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./features/settings/settings.component').then(m => m.SettingsComponent)
+  },
+  {
+    // Wildcard Fallback Route (Catches typos and redirects to the safe default)
+    path: '**',
+    redirectTo: 'discovery'
+  }
 ];
