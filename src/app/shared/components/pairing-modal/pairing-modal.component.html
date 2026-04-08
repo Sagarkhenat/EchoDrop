@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Pairing</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelAndDismiss()">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding custom-modal-content">
+  <div class="status-container">
+    <h2>{{ deviceName || 'Unknown Device' }}</h2>
+    <p class="device-id">{{ deviceId }}</p>
+
+    <div class="state-wrapper">
+
+      @if (connectionState() === 'connecting') {
+        <div class="state connecting-state">
+          <ion-spinner name="dots" color="primary"></ion-spinner>
+          <p>Establishing secure handshake...</p>
+        </div>
+      }
+
+      @if (connectionState() === 'success') {
+        <div class="state success-state">
+          <ion-icon name="checkmark-circle" color="success"></ion-icon>
+          <p>Connected securely.</p>
+        </div>
+      }
+
+      @if (connectionState() === 'error') {
+        <div class="state error-state">
+          <ion-icon name="warning" color="danger"></ion-icon>
+          <p class="error-text">{{ errorMessage() }}</p>
+          <ion-button fill="outline" color="primary" (click)="attemptConnection()">
+            Retry Connection
+          </ion-button>
+        </div>
+      }
+
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">EchoDrop Radar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openQrPairing()">
+        <ion-icon name="qr-code-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  @if (bleService.scanError()) {
+    <div class="state-container error-state">
+      <ion-icon name="warning-outline" color="danger"></ion-icon>
+      <h2>Access Required</h2>
+      <p>{{ bleService.scanError() }}</p>
+      <ion-button fill="outline" color="primary" (click)="toggleScan()">
+        Grant Permission
+      </ion-button>
+    </div>
+  } @else {
+
+    <div class="radar-container">
+      <div class="pulse-ring" [class.active]="bleService.isScanning()"></div>
+
+      <ion-button
+        shape="circle"
+        class="radar-btn"
+        [color]="bleService.isScanning() ? 'danger' : 'primary'"
+        (click)="toggleScan()">
+        <ion-icon [name]="bleService.isScanning() ? 'stop' : 'scan'"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="device-list-container">
+      <h3>Nearby Devices</h3>
+
+      @if (bleService.isScanning() && bleService.discoveredDevices().length === 0) {
+        <div class="state-container">
+          <ion-spinner name="crescent" color="primary"></ion-spinner>
+          <p>Broadcasting and looking for peers...</p>
+        </div>
+      }
+
+      @if (!bleService.isScanning() && bleService.discoveredDevices().length === 0) {
+        <div class="state-container">
+          <p>Tap the radar to find nearby devices.</p>
+        </div>
+      }
+
+      <ion-list lines="none">
+        @for (device of bleService.discoveredDevices(); track device.device.deviceId) {
+          <ion-item class="device-item" button="true" (click)="onDeviceTap(device.device.deviceId, device.device.name || '')">
+            <ion-icon name="phone-portrait-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>
+              <h2>{{ device.device.name || 'Unknown Device' }}</h2>
+              <p>{{ device.device.deviceId }}</p>
+            </ion-label>
+            <ion-button slot="end" fill="clear" color="primary">Connect</ion-button>
+          </ion-item>
+        }
+      </ion-list>
+    </div>
+  }
+</ion-content>
