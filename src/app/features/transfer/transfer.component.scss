@@ -1,0 +1,96 @@
+.transfer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  justify-content: flex-start;
+  padding-top: 1rem;
+}
+
+.payload-card {
+  background: var(--ion-color-step-50);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: 0;
+
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .text-preview {
+    background: var(--ion-color-step-100);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-family: monospace;
+    word-break: break-all;
+    max-height: 180px;
+    overflow-y: auto;
+
+    /* Subtle inner shadow for depth */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.beam-button {
+  margin-top: 1rem;
+  height: 56px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  /* Soft primary glow effect */
+  --box-shadow: 0 4px 16px rgba(var(--ion-color-primary-rgb), 0.4);
+}
+
+/* --- File Transfer UI Additions --- */
+
+.progress-container {
+  background: var(--ion-color-step-100);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.status-text {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ion-color-primary);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+
+  ion-spinner {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  ion-progress-bar {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+  }
+
+  .progress-percentage {
+    font-family: monospace;
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 3ch; /* Keeps the UI from jumping as numbers go from 9 to 10 to 100 */
+    text-align: right;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
