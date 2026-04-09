@@ -83,23 +83,23 @@ To prevent the application from hanging indefinitely if a target device drops ou
 
 To run this project on a physical device (Emulators/Simulators do not support BLE scanning):
 
-# Clone the repository
+### Clone the repository
 
 git clone [https://github.com/yourusername/echodrop-p2p-ionic.git](https://github.com/yourusername/echodrop-p2p-ionic.git)
 
-# Install dependencies
+### Install dependencies
 
 npm install
 
-# Build the Angular application
+### Build the Angular application
 
 ionic build
 
-# Synchronize native iOS and Android projects
+### Synchronize native iOS and Android projects
 
 npx cap sync
 
-# Open in native IDEs to deploy to physical devices
+### Open in native IDEs to deploy to physical devices
 
 npx cap open ios
 npx cap open android
