@@ -1,0 +1,101 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Payload Transfer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-toast [isOpen]="!!errorMessage()"  [message]="errorMessage()"  duration="3000"
+    (didDismiss)="errorMessage.set(null)" color="danger" icon="warning-outline"
+  ></ion-toast>
+
+  <div class="transfer-container">
+
+    <ion-card class="payload-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="clipboard-outline"></ion-icon>
+          Current Clipboard
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        @if (transferService.currentClipboardText(); as text) {
+          <div class="text-preview">
+            {{ text }}
+          </div>
+        } @else {
+          <ion-text color="medium">
+            <p>No text detected in clipboard. Copy some text to begin.</p>
+          </ion-text>
+        }
+
+        <ion-button fill="clear" (click)="handleReadClipboard()" class="ion-margin-top" [disabled]="transferService.isTransferring()">
+          Refresh Clipboard
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="payload-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="document-outline"></ion-icon>
+          File Transfer
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-button
+          fill="outline"
+          expand="block"
+          color="primary"
+          (click)="transferService.selectAndSendFile()"
+          [disabled]="transferService.isTransferring()">
+          <ion-icon slot="start" name="folder-open-outline"></ion-icon>
+          Select & Send File
+        </ion-button>
+
+        @if (transferService.isTransferring() || transferService.receiveProgress() > 0) {
+          <div class="progress-container ion-margin-top">
+
+            @if (transferService.transferStatusMessage(); as msg) {
+              <p class="status-text">
+                <ion-spinner name="dots" class="ion-margin-end"></ion-spinner>
+                {{ msg }}
+              </p>
+            }
+
+            @if (transferService.transferProgress() > 0) {
+              <div class="progress-wrapper">
+                <ion-progress-bar [value]="transferService.transferProgress() / 100"></ion-progress-bar>
+                <span class="progress-percentage">{{ transferService.transferProgress() }}%</span>
+              </div>
+            }
+
+            @if (transferService.receiveProgress() > 0) {
+              <div class="progress-wrapper">
+                <ion-progress-bar color="success" [value]="transferService.receiveProgress() / 100"></ion-progress-bar>
+                <span class="progress-percentage">{{ transferService.receiveProgress() }}%</span>
+              </div>
+            }
+          </div>
+        }
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" shape="round" class="beam-button"
+      [disabled]="!transferService.currentClipboardText() || transferService.isTransferring()"
+      (click)="handleBeam()"
+>
+      @if (transferService.isTransferring() && transferService.transferProgress() === 0) {
+        <ion-spinner name="crescent"></ion-spinner>
+        <span class="ion-margin-start">Beaming Text...</span>
+      } @else {
+        <ion-icon slot="start" name="paper-plane-outline"></ion-icon>
+        Beam Text to Peer
+      }
+    </ion-button>
+
+  </div>
+</ion-content>
