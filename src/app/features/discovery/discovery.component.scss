@@ -78,6 +78,15 @@
 }
 
 /* -- Discovered Device List -- */
+
+.empty-list{
+  background: transparent;
+  --background: transparent;
+
+  ion-item {
+    --background: transparent;
+  }
+}
 .device-list-container {
   h3 {
     font-size: 1.2rem;

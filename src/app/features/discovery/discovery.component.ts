@@ -1,5 +1,6 @@
 /*------------------Ionic Angular Components----------------------*/
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {IonHeader, IonToolbar, IonTitle, IonContent,
   IonLabel, IonIcon,IonSpinner,IonList,IonItem, IonButton,IonButtons,ModalController } from "@ionic/angular/standalone";
 
@@ -19,7 +20,7 @@ import { BleService } from '../../core/services/ble.service';
   templateUrl: './discovery.component.html',
   styleUrls: ['./discovery.component.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent,
+  imports: [CommonModule,IonHeader, IonToolbar, IonTitle, IonContent,
   IonLabel, IonIcon,IonSpinner,IonList,IonItem, IonButton,IonButtons]
 })
 export class DiscoveryComponent {
