@@ -35,7 +35,7 @@
     </div>
 
     <div class="device-list-container">
-      <h3>Nearby Devices</h3>
+      <h3 class="ion-text-center">Nearby Devices</h3>
 
       @if (bleService.isScanning() && bleService.discoveredDevices().length === 0) {
         <div class="state-container">
@@ -50,7 +50,7 @@
         </div>
       }
 
-      <ion-list lines="none">
+      <ion-list lines="none" [ngClass]="{'empty-list': bleService.discoveredDevices().length === 0}">
         @for (device of bleService.discoveredDevices(); track device.device.deviceId) {
           <ion-item class="device-item" button="true" (click)="onDeviceTap(device.device.deviceId, device.device.name || '')">
             <ion-icon name="phone-portrait-outline" slot="start" color="primary"></ion-icon>
