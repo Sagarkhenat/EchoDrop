@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {ModalController, IonHeader, IonToolbar, IonTitle, IonContent,
-  IonIcon, IonButton, IonButtons, IonSegment, IonSegmentButton, IonLabel,IonItem} from '@ionic/angular/standalone';
+  IonIcon, IonButton, IonButtons, IonSegment, IonSegmentButton, IonLabel,IonItem,IonInput} from '@ionic/angular/standalone';
 
 
 import { QRCodeComponent } from 'angularx-qrcode';
@@ -19,7 +19,7 @@ import { HapticService } from 'src/app/core/services/haptic.service';
   styleUrls: ['./qr-pairing.component.scss'],
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonButton,
-      IonButtons, IonSegment, IonSegmentButton,IonLabel,IonItem,QRCodeComponent, FormsModule]
+      IonButtons, IonSegment, IonSegmentButton,IonLabel,IonItem,QRCodeComponent, FormsModule,IonInput]
 })
 export class QrPairingComponent implements OnInit, OnDestroy {
 
